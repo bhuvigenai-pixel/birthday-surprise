@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#fff0f7"><title>For the King of My Heart 🤴🏻</title>
+<style>
+:root{--rose:#dc588c;--ink:#74435c;--pale:#fff4fa;--white:#fffdfd}*{box-sizing:border-box}
+html{scroll-behavior:smooth}body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--ink);background:linear-gradient(145deg,#fff7fb,#ffe6f1 55%,#f3eaff);min-height:100dvh}
+button,input{font:inherit}button{cursor:pointer;touch-action:manipulation}
+.page{display:none;min-height:100dvh;padding:76px 20px 45px;align-items:center;justify-content:center;flex-direction:column;text-align:center;position:relative;overflow:hidden}
+.page.active{display:flex;animation:appear .45s ease-out}@keyframes appear{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+h1,h2{font-family:Georgia,serif;color:#bd467c;line-height:1.16;margin:12px 0}h1{font-size:clamp(2.25rem,10vw,4.2rem)}h2{font-size:clamp(1.8rem,8vw,3rem)}
+p{max-width:520px;line-height:1.75;margin:10px auto;font-size:1.02rem}.eyebrow{text-transform:uppercase;letter-spacing:.18em;font-size:.7rem;font-weight:750;color:#b4779b}
+.hero{font-size:clamp(65px,22vw,112px);margin:15px 0;filter:drop-shadow(0 10px 12px #ce84a555)}
+.panel{background:#ffffffd9;border:1px solid #fff;border-radius:25px;box-shadow:0 16px 45px #bd70952a;padding:24px 20px;max-width:560px;width:100%;margin:16px auto}
+.btn{border:0;border-radius:999px;background:linear-gradient(110deg,#f580b1,#cf4e8b);color:white;padding:15px 25px;min-height:50px;font-weight:750;box-shadow:0 8px 20px #d86b9d4a;margin:12px 5px}
+.btn:active{transform:scale(.97)}.btn.secondary{background:#fff;color:#bb4c7e;border:1px solid #f1bad0;box-shadow:none}
+.top{position:fixed;top:0;left:0;right:0;z-index:20;display:flex;justify-content:space-between;align-items:center;padding:12px 16px;background:#fff9fcdf;backdrop-filter:blur(12px);border-bottom:1px solid #f9d8e8;font-size:.8rem}
+.music{border:1px solid #e9b6ce;border-radius:50px;background:white;color:#b34e7b;padding:9px 13px;font-weight:700}
+.progress{color:#ac7391;font-size:.85rem;margin:8px}.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;max-width:300px;margin:18px auto}
+.balloon{background:#fff9fc;border:1px solid #f8d0e2;border-radius:20px;min-width:120px;min-height:112px;font-size:65px;box-shadow:0 6px 16px #dd9bb32e;transition:.2s}
+.balloon.popped{opacity:.35;transform:scale(.88);pointer-events:none}.balloon:focus-visible,.btn:focus-visible,.music:focus-visible{outline:3px solid #8a4c9b;outline-offset:3px}
+.timer{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:18px 0}.unit{background:#ffe6f1;border-radius:14px;padding:12px 3px}.num{font-size:clamp(1.3rem,6vw,2rem);font-weight:800;color:#ba4b80}.unit small{display:block;font-size:.65rem}
+input[type=date]{width:100%;max-width:280px;border:1px solid #eebbd3;border-radius:14px;padding:12px;background:#fff;color:#74435c;margin:10px}
+.timeline{position:relative;text-align:left;max-width:550px;width:100%;margin:20px auto}.moment{border-left:3px solid #e9a0c1;padding:0 0 23px 20px;position:relative}.moment:before{content:"💗";position:absolute;left:-13px;top:0;background:#fff2f8;border-radius:50%}.moment strong{color:#b4497b}.moment p{margin:6px 0;font-size:.96rem}
+.letter{text-align:left;white-space:pre-line;line-height:1.85;font-family:Georgia,serif;font-size:1.06rem}.tiny{font-size:.8rem;color:#a47791}.secret{filter:blur(7px);user-select:none;transition:filter .5s}.secret.revealed{filter:none;user-select:text}
+.petals{position:fixed;inset:0;pointer-events:none;z-index:40;overflow:hidden}.petal{position:absolute;top:-40px;animation:drop linear forwards}@keyframes drop{to{transform:translateY(110dvh) rotate(540deg);opacity:0}}
+footer{font-size:.76rem;color:#a47791;margin-top:28px}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;scroll-behavior:auto!important}}
+</style></head><body>
+<header class="top"><span>💗 A little love story</span><button class="music" id="music" aria-pressed="false">♫ Music off</button></header>
+<div class="petals" id="petals" aria-hidden="true"></div>
+<main>
+<section class="page active" id="welcome"><span class="eyebrow">A magical birthday surprise</span><div class="hero">🎁🌷</div>
+<h1>Hey, King of my Heart 🤴🏻</h1><p>Someone who loves you a whole lot made a little world just for you. Ready, birthday boy?</p>
+<button class="btn" data-next="countdown">Open my surprise 💌</button><footer>With love, Passenger of ur life 👸🏻</footer></section>
+<section class="page" id="countdown"><span class="eyebrow">Chapter 01 · Your special day</span><div class="hero">🎂</div>
+<h2>Counting every moment until your birthday</h2><div class="panel">
+<div class="timer" aria-live="off"><div class="unit"><div class="num" id="days">--</div><small>Days</small></div><div class="unit"><div class="num" id="hours">--</div><small>Hours</small></div><div class="unit"><div class="num" id="minutes">--</div><small>Minutes</small></div><div class="unit"><div class="num" id="seconds">--</div><small>Seconds</small></div></div>
+<p id="countdownNote" class="tiny">Set his birthday to start the countdown.</p>
+<label for="birthday">His birthday (month and day)</label><input type="date" id="birthday"><p class="tiny">The countdown automatically rolls over to the next birthday each year. The date is saved only on this device.</p></div>
+<button class="btn" data-next="balloons">Next surprise 🎈</button></section>
+<section class="page" id="balloons"><span class="eyebrow">Chapter 02 · Four little wishes</span><h2>Pop the balloons 🎈</h2><p>Tap each balloon to unlock a wish I made for you.</p>
+<div class="grid"><button class="balloon" aria-label="Pop wish one">🎈</button><button class="balloon" aria-label="Pop wish two">🎈</button><button class="balloon" aria-label="Pop wish three">🎈</button><button class="balloon" aria-label="Pop wish four">🎈</button></div>
+<p id="wishText" aria-live="polite">Your wishes are waiting 💕</p><div class="progress" id="progress">0 of 4 opened</div>
+<button class="btn" id="balloonNext" hidden data-next="timeline">Our story 📖</button></section>
+<section class="page" id="timeline"><span class="eyebrow">Chapter 03 · Us, always</span><h2>Our little love story 💞</h2><p>Every chapter with you is one I want to remember.</p>
+<div class="panel timeline" id="moments"></div><button class="btn" data-next="cake">A birthday wish 🎂</button></section>
+<section class="page" id="cake"><span class="eyebrow">Chapter 04 · Make a wish</span><div class="hero" id="cakeEmoji">🎂</div><h2>Make a wish, my king!</h2><p id="cakeText">Close your eyes, think of something beautiful, and tap below to blow out your candles.</p>
+<button class="btn" id="blow">Blow out the candles ✨</button><button class="btn" id="cakeNext" hidden data-next="letter">Read my letter 💌</button></section>
+<section class="page" id="letter"><span class="eyebrow">Chapter 05 · From my heart</span><div class="hero">💌</div><h2>To the King of my Heart</h2>
+<div class="panel letter" id="letterBody"></div><button class="btn" data-next="secret">One final secret 🔐</button></section>
+<section class="page" id="secret"><span class="eyebrow">Final chapter · Only for you</span><div class="hero">🔐💖</div><h2>A secret for my favourite person</h2>
+<p>There's one last thing I want you to know. Tap the heart to reveal it.</p><div class="panel"><div class="secret" id="secretText"></div></div>
+<button class="btn" id="reveal">Reveal my secret ❤️</button><button class="btn secondary" id="replay">Experience it again ↻</button><footer>Forever yours, Passenger of ur life 👸🏻</footer></section>
+</main>
+<script>
+"use strict";
+/* 💕 EDIT HERE: Replace the sample timeline and messages with your own memories. */
+const CONFIG={
+ boyfriend:"King of my Heart 🤴🏻",
+ sender:"Passenger of ur life 👸🏻",
+ // Optional: set "YYYY-MM-DD" here to prefill the countdown for everyone.
+ birthday:"1980-11-01",
+ timeline:[
+  {title:"25 February 2023 · The day we said yes 💍",detail:"Our proposal day — the day we made a beautiful promise and began dreaming about the journey ahead."},
+  {title:"Our sweetest little moments ☕",detail:"The laughs, the conversations, and the little things that make us us."},
+  {title:"Every day I choose you 💗",detail:"Even ordinary days feel beautiful when you're part of them."},
+  {title:"All the adventures ahead ✨",detail:"More memories, more celebrations, and a lifetime of reasons to smile."}
+ ],
+ letter:`Happy Birthday, my King! 🤴🏻❤️
+
+You are my favourite person, my safe place, and one of the sweetest parts of my life.
+
+I hope this birthday brings you peace, laughter, good health, success, and everything your heart has been dreaming of. I want to see you win, grow, smile, and feel loved in every season.
+
+Thank you for being you. I love the little moments we share and all the beautiful memories still waiting for us.
+
+Wherever life takes us, I hope you always know that someone is cheering for you with her whole heart.
+
+With all my love,
+Passenger of ur life 👸🏻`,
+ secret:"No matter how many roads life gives us, my favourite journey will always be the one where I get to be the Passenger of ur life. 👸🏻💖 You will always be my King of my Heart. 🤴🏻"
+};
+const $=id=>document.getElementById(id);
+const pages=[...document.querySelectorAll(".page")];
+function show(id){pages.forEach(p=>p.classList.toggle("active",p.id===id));window.scrollTo(0,0);if(id==="secret")celebrate(35)}
+document.querySelectorAll("[data-next]").forEach(b=>b.addEventListener("click",()=>show(b.dataset.next)));
+$("moments").replaceChildren(...CONFIG.timeline.map(m=>{const div=document.createElement("div");div.className="moment";const strong=document.createElement("strong");strong.textContent=m.title;const p=document.createElement("p");p.textContent=m.detail;div.append(strong,p);return div}));
+$("letterBody").textContent=CONFIG.letter;$("secretText").textContent=CONFIG.secret;
+let count=0;const wishes=["May all your dreams come true ✨","May you always find reasons to smile 🌷","May love and luck follow you everywhere 💞","And may I always be beside you cheering you on ❤️"];
+document.querySelectorAll(".balloon").forEach((b,i)=>b.addEventListener("click",()=>{if(b.classList.contains("popped"))return;b.classList.add("popped");b.textContent="💖";count++;$("wishText").textContent=wishes[i];$("progress").textContent=count+" of 4 opened";if(count===4){$("balloonNext").hidden=false;celebrate(22)}}));
+$("blow").addEventListener("click",()=>{$("cakeEmoji").textContent="🍰";$("cakeText").textContent="Your wish is on its way! May every beautiful thing find you. 💗";$("blow").hidden=true;$("cakeNext").hidden=false;celebrate(50)});
+$("reveal").addEventListener("click",()=>{$("secretText").classList.add("revealed");$("reveal").hidden=true;celebrate(65)});
+$("replay").addEventListener("click",()=>{count=0;document.querySelectorAll(".balloon").forEach(b=>{b.classList.remove("popped");b.textContent="🎈"});$("wishText").textContent="Your wishes are waiting 💕";$("progress").textContent="0 of 4 opened";$("balloonNext").hidden=true;$("cakeEmoji").textContent="🎂";$("cakeText").textContent="Close your eyes, think of something beautiful, and tap below to blow out your candles.";$("blow").hidden=false;$("cakeNext").hidden=true;$("secretText").classList.remove("revealed");$("reveal").hidden=false;show("welcome")});
+function celebrate(n){const layer=$("petals");for(let i=0;i<n;i++){const el=document.createElement("span");el.className="petal";el.textContent=["🌸","💕","✨","💗"][Math.floor(Math.random()*4)];el.style.left=Math.random()*100+"%";el.style.fontSize=(12+Math.random()*18)+"px";el.style.animationDuration=(2.3+Math.random()*2.7)+"s";el.style.animationDelay=(Math.random()*.8)+"s";layer.appendChild(el);setTimeout(()=>el.remove(),6000)}}
+const dateInput=$("birthday");let stored="";try{stored=localStorage.getItem("birthdayDate")||""}catch(e){}
+dateInput.value=CONFIG.birthday||stored;
+dateInput.addEventListener("change",()=>{try{localStorage.setItem("birthdayDate",dateInput.value)}catch(e){}updateCountdown()});
+function updateCountdown(){const val=dateInput.value;if(!val){["days","hours","minutes","seconds"].forEach(id=>$(id).textContent="--");$("countdownNote").textContent="Set his birthday to start the countdown.";return}
+const parts=val.split("-").map(Number);const month=parts[1]-1,day=parts[2];if(month<0||month>11||day<1||day>31)return;
+const now=new Date();let year=now.getFullYear();let target=new Date(year,month,day,0,0,0);if(target.getMonth()!==month||target.getDate()!==day){$("countdownNote").textContent="Please choose a valid birthday date.";return}
+const isBirthdayToday=now.getMonth()===month&&now.getDate()===day;
+if(isBirthdayToday){["days","hours","minutes","seconds"].forEach(id=>$(id).textContent="0");$("countdownNote").textContent="It's your birthday today, my King! Happy Birthday! 🎉❤️";return}
+if(target.getTime()<=now.getTime()){year++;target=new Date(year,month,day,0,0,0);if(target.getMonth()!==month){target=new Date(year,2,1)}}let s=Math.max(0,Math.floor((target-now)/1000));
+const d=Math.floor(s/86400);s%=86400;const h=Math.floor(s/3600);s%=3600;const m=Math.floor(s/60);s%=60;
+$("days").textContent=d;$("hours").textContent=String(h).padStart(2,"0");$("minutes").textContent=String(m).padStart(2,"0");$("seconds").textContent=String(s).padStart(2,"0");
+$("countdownNote").textContent=now.getMonth()===month&&now.getDate()===day?"Happy Birthday, my King! 🎉":"Every second brings us closer to your special day 💗"}
+updateCountdown();setInterval(updateCountdown,1000);
+/* Original, gentle synthesized background tune; no audio download needed. Browser requires a tap to start. */
+let audioCtx=null,musicTimer=null,noteIndex=0;
+const melody=[392,440,523.25,440,392,329.63,349.23,392,440,392,349.23,329.63,293.66,329.63,392,0];
+function playNote(){if(!audioCtx)return;const hz=melody[noteIndex++%melody.length];if(!hz)return;const t=audioCtx.currentTime;const osc=audioCtx.createOscillator(),gain=audioCtx.createGain();osc.type="sine";osc.frequency.value=hz;gain.gain.setValueAtTime(.0001,t);gain.gain.exponentialRampToValueAtTime(.055,t+.04);gain.gain.exponentialRampToValueAtTime(.0001,t+.35);osc.connect(gain);gain.connect(audioCtx.destination);osc.start(t);osc.stop(t+.37)}
+$("music").addEventListener("click",async()=>{if(musicTimer){clearInterval(musicTimer);musicTimer=null;await audioCtx?.suspend();$("music").textContent="♫ Music off";$("music").setAttribute("aria-pressed","false");return}
+try{const AC=window.AudioContext||window.webkitAudioContext;if(!AC){$("music").textContent="Audio unavailable";return}audioCtx=audioCtx||new AC();await audioCtx.resume();playNote();musicTimer=setInterval(playNote,410);$("music").textContent="♫ Music on";$("music").setAttribute("aria-pressed","true")}catch(e){$("music").textContent="Audio unavailable"}});
+document.addEventListener("visibilitychange",()=>{if(document.hidden&&musicTimer){clearInterval(musicTimer);musicTimer=null;audioCtx?.suspend();$("music").textContent="♫ Music off";$("music").setAttribute("aria-pressed","false")}});
+</script></body></html>
